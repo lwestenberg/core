@@ -1,0 +1,13 @@
+{
+  "domain": "bold",
+  "name": "Bold",
+  "config_flow": true,
+  "documentation": "https://www.home-assistant.io/integrations/bold",
+  "requirements": ["bold_smart_lock==0.2.3"],
+  "ssdp": [],
+  "zeroconf": [],
+  "homekit": {},
+  "dependencies": ["application_credentials"],
+  "codeowners": ["@lwestenberg"],
+  "iot_class": "cloud_push"
+}
