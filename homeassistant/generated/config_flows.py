@@ -63,6 +63,7 @@ FLOWS = {
         "bluemaestro",
         "bluetooth",
         "bmw_connected_drive",
+        "bold",
         "bond",
         "bosch_shc",
         "braviatv",

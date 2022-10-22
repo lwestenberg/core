@@ -626,6 +626,12 @@
       "config_flow": true,
       "iot_class": "cloud_polling"
     },
+    "bold": {
+      "name": "Bold",
+      "integration_type": "hub",
+      "config_flow": true,
+      "iot_class": "cloud_push"
+    },
     "bond": {
       "name": "Bond",
       "integration_type": "hub",

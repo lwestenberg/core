@@ -9,6 +9,7 @@
       "type": "python",
       "request": "launch",
       "module": "homeassistant",
+      "console": "internalConsole",
       "justMyCode": false,
       "args": ["--debug", "-c", "config"]
     },
