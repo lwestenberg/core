@@ -1,10 +1,8 @@
 """API for Bold bound to Home Assistant OAuth."""
-from asyncio import run_coroutine_threadsafe
 
 from aiohttp import ClientSession
 from bold_smart_lock.auth import AbstractAuth
 
-from homeassistant.core import HomeAssistant
 from homeassistant.helpers import config_entry_oauth2_flow
 
 
