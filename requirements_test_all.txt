@@ -387,7 +387,7 @@ bluetooth-auto-recovery==1.0.3
 bluetooth-data-tools==0.3.1
 
 # homeassistant.components.bold
-bold_smart_lock==0.2.3
+bold_smart_lock==0.3.3
 
 # homeassistant.components.bond
 bond-async==0.1.22

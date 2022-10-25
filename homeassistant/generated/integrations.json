@@ -630,7 +630,7 @@
       "name": "Bold",
       "integration_type": "hub",
       "config_flow": true,
-      "iot_class": "cloud_push"
+      "iot_class": "cloud_polling"
     },
     "bond": {
       "name": "Bond",
