@@ -1,5 +1,4 @@
 """API for Bold bound to Home Assistant OAuth."""
-
 from aiohttp import ClientSession
 from bold_smart_lock.auth import AbstractAuth
 
@@ -15,7 +14,7 @@ class AsyncConfigEntryAuth(AbstractAuth):
         oauth_session: config_entry_oauth2_flow.OAuth2Session,
     ) -> None:
         """Initialize Bold auth."""
-        super().__init__(websession, "")
+        super().__init__(websession)
         self._oauth_session = oauth_session
 
     async def async_get_access_token(self) -> str:

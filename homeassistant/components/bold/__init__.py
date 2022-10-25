@@ -1,15 +1,15 @@
 """The Bold integration."""
 from __future__ import annotations
 
+from bold_smart_lock.bold_smart_lock import BoldSmartLock
+
 from homeassistant.config_entries import ConfigEntry
-from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import aiohttp_client, config_entry_oauth2_flow
 
 from . import api
-from .const import DOMAIN
-
-PLATFORMS: list[Platform] = []
+from .const import DOMAIN, PLATFORMS
+from .coordinator import BoldCoordinator
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
@@ -22,11 +22,17 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     session = config_entry_oauth2_flow.OAuth2Session(hass, entry, implementation)
 
-    hass.data[DOMAIN][entry.entry_id] = api.AsyncConfigEntryAuth(
+    auth_manager = api.AsyncConfigEntryAuth(
         aiohttp_client.async_get_clientsession(hass), session
     )
 
-    hass.config_entries.async_setup_platforms(entry, PLATFORMS)
+    bold_api = BoldSmartLock(auth_manager)
+
+    coordinator = BoldCoordinator(hass, bold_api)
+    await coordinator.async_config_entry_first_refresh()
+    hass.data.setdefault(DOMAIN, {})[entry.entry_id] = coordinator
+
+    await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
 
     return True
 

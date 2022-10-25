@@ -154,8 +154,8 @@ build.json @home-assistant/supervisor
 /tests/components/bluetooth/ @bdraco
 /homeassistant/components/bmw_connected_drive/ @gerard33 @rikroe
 /tests/components/bmw_connected_drive/ @gerard33 @rikroe
-/homeassistant/components/bold/ @lwestenberg
-/tests/components/bold/ @lwestenberg
+/homeassistant/components/bold/ @lwestenberg @tim427
+/tests/components/bold/ @lwestenberg @tim427
 /homeassistant/components/bond/ @bdraco @prystupa @joshs85 @marciogranzotto
 /tests/components/bond/ @bdraco @prystupa @joshs85 @marciogranzotto
 /homeassistant/components/bosch_shc/ @tschamm
