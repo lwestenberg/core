@@ -19,7 +19,7 @@ class BoldCoordinator(DataUpdateCoordinator):
             hass,
             _LOGGER,
             name="Bold",
-            update_interval=timedelta(seconds=60),
+            update_interval=timedelta(seconds=3600),
         )
         self.bold = bold
 
