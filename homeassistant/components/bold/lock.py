@@ -1,10 +1,10 @@
 """Lock entity for Bold Smart Lock."""
 import datetime
 import logging
+import math
 from typing import Any
 
 from bold_smart_lock.enums import DeviceType
-from bold_smart_lock.exceptions import DeviceFirmwareOutdatedError
 
 from homeassistant.components.lock import LockEntity
 from homeassistant.config_entries import ConfigEntry
@@ -109,21 +109,15 @@ class BoldLockEntity(CoordinatorEntity, LockEntity):
                 f"Error while unlocking: {self._attr_name}"
             ) from exception
 
-    async def async_lock(self, **kwargs: Any) -> None:
+    def lock(self, **kwargs: Any) -> None:
         """Lock Bold Smart Lock."""
-        try:
-            if await self._coordinator.bold.remote_deactivation(self._attr_unique_id):
-                self._unlock_end_time = dt_util.utcnow()
-                self.update_state()
-                _LOGGER.debug("Lock activated")
-        except DeviceFirmwareOutdatedError as exception:
-            raise HomeAssistantError(
-                f"Update the firmware of your Bold Smart Lock '{self._attr_name}' to enable deactivating."
-            ) from exception
-        except Exception as exception:
-            raise HomeAssistantError(
-                f"Error while locking: {self._attr_name}"
-            ) from exception
+        seconds_to_go = math.ceil(
+            (self._unlock_end_time - dt_util.utcnow()).total_seconds()
+        )
+
+        raise HomeAssistantError(
+            f"Manual locking not available yet, {self._attr_name} will automatically lock in {seconds_to_go} seconds"
+        )
 
     @callback
     def update_state(self, _=dt_util.utcnow()):
