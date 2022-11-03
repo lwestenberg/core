@@ -1,10 +1,10 @@
 """Lock entity for Bold Smart Lock."""
 import datetime
 import logging
-import math
 from typing import Any
 
 from bold_smart_lock.enums import DeviceType
+from bold_smart_lock.exceptions import DeviceFirmwareOutdatedError, TooManyRequestsError
 
 from homeassistant.components.lock import LockEntity
 from homeassistant.config_entries import ConfigEntry
@@ -104,19 +104,34 @@ class BoldLockEntity(CoordinatorEntity, LockEntity):
                 async_track_point_in_utc_time(
                     self.hass, self.update_state, self._unlock_end_time
                 )
+        except TooManyRequestsError as exception:
+            raise HomeAssistantError(
+                f"Lower the ammount of requests, because you've hit the rate limit of the Bold API."
+            ) from exception
         except Exception as exception:
             raise HomeAssistantError(
                 f"Error while unlocking: {self._attr_name}"
             ) from exception
 
-    def lock(self, **kwargs: Any) -> None:
+    async def async_lock(self, **kwargs: Any) -> None:
         """Lock Bold Smart Lock."""
-        seconds_to_go = math.ceil(
-            (self._unlock_end_time - dt_util.utcnow()).total_seconds()
-        )
-        raise HomeAssistantError(
-            f"Manual locking not available yet, {self._attr_name} will automatically lock in {seconds_to_go} seconds"
-        )
+        try:
+            if await self._coordinator.bold.remote_deactivation(self._attr_unique_id):
+                self._unlock_end_time = dt_util.utcnow()
+                self.update_state()
+                _LOGGER.debug("Lock activated")
+        except TooManyRequestsError as exception:
+            raise HomeAssistantError(
+                f"Lower the ammount of requests, because you've hit the rate limit of the Bold API."
+            ) from exception
+        except DeviceFirmwareOutdatedError as exception:
+            raise HomeAssistantError(
+                f"Update the firmware of your Bold Smart Lock '{self._attr_name}' to enable deactivating."
+            ) from exception
+        except Exception as exception:
+            raise HomeAssistantError(
+                f"Error while locking: {self._attr_name}"
+            ) from exception
 
     @callback
     def update_state(self, _=dt_util.utcnow()):
