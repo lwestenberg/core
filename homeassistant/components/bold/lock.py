@@ -114,7 +114,6 @@ class BoldLockEntity(CoordinatorEntity, LockEntity):
         seconds_to_go = math.ceil(
             (self._unlock_end_time - dt_util.utcnow()).total_seconds()
         )
-
         raise HomeAssistantError(
             f"Manual locking not available yet, {self._attr_name} will automatically lock in {seconds_to_go} seconds"
         )

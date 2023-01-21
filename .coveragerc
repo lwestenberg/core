@@ -70,7 +70,12 @@ omit =
     homeassistant/components/anthemav/media_player.py
     homeassistant/components/apcupsd/__init__.py
     homeassistant/components/apcupsd/binary_sensor.py
-    homeassistant/components/apcupsd/sensor.py
+    homeassistant/components/bold/__init__.py
+    homeassistant/components/bold/api.py
+    homeassistant/components/bold/application_credentials.py
+    homeassistant/components/bold/const.py
+    homeassistant/components/bold/coordinator.py
+    homeassistant/components/bold/lock.py
     homeassistant/components/apple_tv/__init__.py
     homeassistant/components/apple_tv/browse_media.py
     homeassistant/components/apple_tv/media_player.py
@@ -139,6 +144,7 @@ omit =
     homeassistant/components/bmw_connected_drive/lock.py
     homeassistant/components/bmw_connected_drive/notify.py
     homeassistant/components/bmw_connected_drive/sensor.py
+    homeassistant/components/apcupsd/sensor.py
     homeassistant/components/bosch_shc/__init__.py
     homeassistant/components/bosch_shc/binary_sensor.py
     homeassistant/components/bosch_shc/const.py

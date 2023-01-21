@@ -3,7 +3,7 @@
   "name": "Bold",
   "config_flow": true,
   "documentation": "https://www.home-assistant.io/integrations/bold",
-  "requirements": ["bold_smart_lock==0.3.3"],
+  "requirements": ["bold_smart_lock==0.3.8"],
   "ssdp": [],
   "zeroconf": [],
   "homekit": {},
